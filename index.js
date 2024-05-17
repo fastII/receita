@@ -13,7 +13,7 @@ const swaggerOptions = {
     info: {
       title: 'API Receita Federal - Consulta de CNPJ',
       version: '1.0.0',
-      description: 'API para consultar dados de CNPJ na Receita Federal com SintegraWS',
+      description: 'API para consultar dados de CNPJ na Receita Federal',
       contact: {
         name: 'Seu Nome',
       },
@@ -45,13 +45,6 @@ app.use(express.json());
  *         description: CNPJ da empresa
  *         schema:
  *           type: string
- *       - in: header
- *         name: Authorization
- *         required: true
- *         description: Token de autenticação Bearer
- *         schema:
- *           type: string
- *           example: Bearer seu_token_aqui
  *     responses:
  *       200:
  *         description: Dados da empresa
@@ -60,18 +53,9 @@ app.use(express.json());
  */
 app.get('/receita/:cnpj', async (req, res) => {
   const cnpj = req.params.cnpj;
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Token não fornecido' });
-  }
-
   try {
-    const response = await axios.get(`https://api.sintegraws.com.br/v1/cnpj/${cnpj}`, {
-      headers: {
-        'Authorization': token,
-      },
-    });
+    // Substitua pela URL real do endpoint da Receita Federal
+    const response = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
     res.json(response.data);
   } catch (error) {
     res.status(404).json({ message: 'Empresa não encontrada' });
